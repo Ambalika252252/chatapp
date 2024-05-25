@@ -25,7 +25,7 @@ export default function Chat() {
     navigation.setOptions({
       title: "Ambalika's Chat Room",
       headerStyle: {
-        backgroundColor: '#F7ECDE',
+        backgroundColor: 'green',
       },
       headerRight: () => (
         <TouchableOpacity
@@ -51,7 +51,7 @@ export default function Chat() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setMessages(
         querySnapshot.docs.map((doc) => ({
-          _id: doc.id,
+          _id: doc.data()._id,
           createdAt: doc.data().createdAt.toDate(),
           text: doc.data().text,
           user: doc.data().user,
@@ -62,7 +62,6 @@ export default function Chat() {
   }, []);
 
   const onSend = useCallback((messages = []) => {
-    console.log(messages);
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
@@ -72,10 +71,6 @@ export default function Chat() {
       createdAt,
       text,
       user,
-    }).then(() => {
-      console.log("Message sent successfully:", messages[0]);
-    }).catch((error) => {
-      console.error("Error sending message:", error);
     });
   }, []);
 
@@ -85,8 +80,8 @@ export default function Chat() {
       containerStyle={{
         borderTopWidth: 1,
         borderTopColor: '#E9DAC1',
-        backgroundColor: '#54BAB9',
-        padding: 5, // Adjust padding to fit the input and send button
+        backgroundColor: '#E9DAC1',
+        padding: 5,
       }}
     />
   );
@@ -95,9 +90,14 @@ export default function Chat() {
     <Composer
       {...props}
       textInputStyle={{
-        color: '#ffffff',
+        backgroundColor: "#E9DAC1",
+        color: 'red',
         height: 100,
         padding: 10,
+        borderWidth: 1,
+        borderColor: '#E9DAC1',
+        borderRadius: 20,
+        marginBottom: 5,
       }}
     />
   );
@@ -108,20 +108,21 @@ export default function Chat() {
       containerStyle={{
         justifyContent: 'center',
         alignItems: 'center',
-        height: 50,
-        width: 50,
+        height: 100,
         marginBottom: 5,
+        padding: 10,
       }}
     >
       <TouchableOpacity
         style={{
-          backgroundColor: '#F7ECDE',
+          backgroundColor: '#54BAB9',
           borderRadius: 20,
-          padding: 10,
-          elevation: 5
+          padding: 15,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <AntDesign name="arrowright" size={24} color="#54BAB9" />
+        <AntDesign name="arrowright" size={24} color="#FFFFFF" />
       </TouchableOpacity>
     </Send>
   );

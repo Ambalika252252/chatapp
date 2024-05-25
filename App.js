@@ -6,6 +6,7 @@ import { auth } from "./config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Chat from "./screens/Chat";
 import Login from "./screens/Login";
+import Register from "./screens/Register";
 
 const Stack = createStackNavigator();
 const AuthContext = createContext({});
@@ -31,6 +32,7 @@ function AuthStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name='Register' component={Register} />
     </Stack.Navigator>
   );
 }

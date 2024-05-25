@@ -16,7 +16,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-export default function Login({}) {
+export default function Login({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -30,23 +30,7 @@ export default function Login({}) {
   };
 
   const onSignup = () => {
-    if (email !== "" && password !== "" && name !== "") {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(async (userCredential) => {
-          console.log("Signed Up!!");
-          const user = userCredential.user;
-          await updateProfile(user, {
-            displayName: name,
-          });
-          console.log("name updated!!");
-        })
-        .catch((err) => Alert.alert("Signup Failed!!", err.message));
-    } else {
-      Alert.alert(
-        "Please fill all the fields!!",
-        "All the fields are required for signing up."
-      );
-    }
+    navigation.navigate('Register');
   };
 
   return (
@@ -55,7 +39,7 @@ export default function Login({}) {
         <Text style={styles.login}>Log In</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter name (if signing up)"
+          placeholder="Enter name"
           autoCapitalize="none"
           autoFocus={true}
           value={name}
@@ -101,7 +85,7 @@ export default function Login({}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#FBF8F1",
   },
   login: {
     fontSize: 36,
@@ -109,14 +93,17 @@ const styles = StyleSheet.create({
     color: "blue",
     alignSelf: "center",
     paddingBottom: 24,
+    color: '#54BAB9'
   },
   input: {
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#F7ECDE",
     height: 58,
     marginBottom: 20,
     fontSize: 16,
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 12,
+    borderColor: "#E9DAC1",
+    borderWidth: 2
   },
   form: {
     flex: 1,
@@ -124,11 +111,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   button: {
-    backgroundColor: "blue",
-    height: 58,
+    backgroundColor: "#E9DAC1",
+    height: 50,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 20,
+    elevation: 5,
+    borderColor: '#54BAB9',
+    borderBottomWidth: 2,
+    borderLeftWidth: 2
   },
 });
